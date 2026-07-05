@@ -6,7 +6,6 @@ VaultShare is a MERN secure file sharing platform with encrypted uploads, signed
 
 - Frontend: React, Redux Toolkit, React Router, Axios, Framer Motion, Socket.IO client, Recharts, modern CSS
 - Backend: Node.js, Express, MongoDB/Mongoose, JWT, bcrypt, Multer, Socket.IO, Nodemailer, AES-256-GCM crypto
-- Deployment target: GitHub repo now, Vercel later
 
 ## Structure
 
