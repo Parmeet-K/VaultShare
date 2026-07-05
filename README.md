@@ -1,75 +1,63 @@
-# VaultShare
+# VaultShare 🔒
 
-VaultShare is a MERN secure file sharing platform with encrypted uploads, signed sharing links, role-aware access, analytics, real-time activity, admin monitoring, and a premium responsive SaaS interface.
+VaultShare is a secure, modern full-stack web application designed for private file storage, encrypted file sharing, and workspace collaboration. It features real-time notifications, multi-language localization support, cryptographic session tracking, and a comprehensive administrative control hub.
 
-## Stack
+---
 
-- Frontend: React, Redux Toolkit, React Router, Axios, Framer Motion, Socket.IO client, Recharts, modern CSS
-- Backend: Node.js, Express, MongoDB/Mongoose, JWT, bcrypt, Multer, Socket.IO, Nodemailer, AES-256-GCM crypto
+## 🚀 Key Features
 
-## Structure
+* **Secure Dashboard Overview:** Displays storage utilization analytics and core navigation layout hooks.
+* **Encrypted Data Hub:** Manage personal assets, shared networks, and user workspace directories.
+* **Advanced Profile Controls:** Multi-device active session audit logging with cryptographic revocation triggers and two-factor authentication (2FA) hooks.
+* **Administrative Command Center:** High-level metrics tracking for platform scale (user accounts, document pipelines, risk profiles) paired with real-time capped event streaming.
+* **Dynamic Theme & Localization Engine:** Seamless toggling between dark/light layout layers, bundled with internationalization capabilities (English, Hindi, Spanish).
 
-```txt
-client/src/components    Reusable UI, layout, files, charts
-client/src/pages         Landing, auth, dashboard, files, shares, workspace, analytics, settings, admin
-client/src/store/slices  Auth, files, sharing, notifications, profile, workspace, analytics, theme
-server/src/controllers   MVC controller layer
-server/src/middleware    Auth, validation, upload, security, errors
-server/src/models        Users, Files, Folders, Shares, Notifications, Activity Logs, Teams, Sessions, Versions
-server/src/routes        REST API modules
-server/src/services      Encryption, storage, mail, audit, tokens, AI placeholders, sockets
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+* **Framework:** React (Vite Wrapper)
+* **State Management:** Redux Toolkit (Slice Architectures)
+* **Routing:** React Router DOM v6
+* **Styling:** Modular Glassmorphism Native CSS Layouts
+* **Icons:** Lucide React
+
+### Backend (Server)
+* **Runtime Environment:** Node.js
+* **Framework:** Express.js
+* **Database Object Modeling:** Mongoose / MongoDB
+* **Security:** Cryptographic Password Hashing (BcryptJS)
+
+---
+
+## 📂 Project Architecture
+
+```text
+VaultShare/
+├── client/                     # Frontend Application
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── layout/         # Shell frames (AppLayout.jsx)
+│   │   │   └── ui/             # Reusable UI Blocks (Modal.jsx, MetricCard.jsx)
+│   │   ├── pages/              # Main Route Components (Admin.jsx, Settings.jsx)
+│   │   ├── store/
+│   │   │   └── slices/         # Redux State Management Controllers
+│   │   ├── lib/                # API Client wrappers & Global Labels Mapping
+│   │   └── styles.css          # Main stylesheet layer layout engine
+└── server/                     # Backend API Core Engine
+    └── models/
+        └── User.js             # Mongoose Schemas & Login Activity Tracking Protocols
+
 ```
 
-## API
 
-- Auth: `/api/auth/register`, `/api/auth/login`, `/api/auth/refresh`, `/api/auth/logout`, `/api/auth/2fa/setup`
-- Files: `/api/files`, `/api/files/upload`, `/api/files/:id/download`, `/api/files/:id/versions`
-- Shares: `/api/shares`, `/api/shares/public/:token`
-- Workspaces: `/api/workspaces`, `/api/workspaces/:id/invite`
-- Analytics: `/api/analytics`
-- Admin: `/api/admin/overview`
+## ⚙️ Installation & Local Setup
 
-## Security Flow
+Follow these steps to get your local development environment up and running.
 
-Login validates bcrypt passwords and optional TOTP 2FA, then issues a short-lived JWT access token and an HTTP-only signed refresh cookie. Sessions are stored in MongoDB with hashed refresh tokens, allowing device management and revocation.
-
-Files are encrypted with AES-256-GCM before storage. Every upload receives a random per-file key, and that key is wrapped with `ENCRYPTION_MASTER_KEY`. Encrypted bytes are stored locally by default under `server/storage/encrypted`; the storage service is isolated so S3 or Cloudinary can replace it later.
-
-Generate a production encryption key:
-
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-
-## Local Development
-
-```bash
-cp server/.env.example server/.env
-cp client/.env.example client/.env
-npm install --workspaces
-npm run dev
-```
-
-MongoDB must be running locally, and the app expects:
-
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:5000`
-
-## Vercel Later
-
-This repo includes `vercel.json` for the React frontend. When you deploy later, set:
-
-- `VITE_API_URL`
-- `VITE_SOCKET_URL`
-
-The backend can be deployed separately when you are ready.
-
-## Hardening Checklist
-
-- Move the master key to a secrets manager.
-- Replace local encrypted storage with private S3 or authenticated Cloudinary.
-- Add a real malware scanner and quarantine workflow.
-- Add multipart resumable chunk upload persistence.
-- Add CSRF token middleware for cookie-only browser auth.
-- Route audit logs into a SIEM and alert on suspicious access patterns.
-- Replace AI placeholders with OCR and governed LLM summarization.
+### Prerequisites
+Before installing, ensure you have the following software installed on your machine:
+* **Node.js** (v18.0.0 or higher)
+* **npm** (comes bundled with Node) or **yarn**
+* **MongoDB** (Local Community Server or a MongoDB Atlas connection string)
