@@ -1,0 +1,16 @@
+import { Router } from 'express';
+import { protect } from '../middleware/auth.middleware.js';
+import { validate } from '../middleware/validate.middleware.js';
+import { enable2fa, forgotPassword, login, loginRules, logout, me, refresh, register, registerRules, resetPassword, revokeSession, sessions, verify2fa } from '../controllers/auth.controller.js';
+export const authRoutes = Router();
+authRoutes.post('/register', registerRules, validate, register);
+authRoutes.post('/login', loginRules, validate, login);
+authRoutes.post('/refresh', refresh);
+authRoutes.post('/forgot-password', forgotPassword);
+authRoutes.post('/reset-password', resetPassword);
+authRoutes.get('/me', protect, me);
+authRoutes.post('/logout', protect, logout);
+authRoutes.get('/sessions', protect, sessions);
+authRoutes.delete('/sessions/:id', protect, revokeSession);
+authRoutes.post('/2fa/setup', protect, enable2fa);
+authRoutes.post('/2fa/verify', protect, verify2fa);

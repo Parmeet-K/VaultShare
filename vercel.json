@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm install --workspaces && npm run build --workspace client",
+  "outputDirectory": "client/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

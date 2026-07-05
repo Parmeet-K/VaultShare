@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { protect } from '../middleware/auth.middleware.js';
+import { validate } from '../middleware/validate.middleware.js';
+import { createFolder, deleteFolder, listFolders, updateFolder } from '../controllers/folder.controller.js';
+export const folderRoutes = Router();
+folderRoutes.use(protect);
+folderRoutes.get('/', listFolders);
+folderRoutes.post('/', [body('name').trim().isLength({ min: 1 })], validate, createFolder);
+folderRoutes.patch('/:id', updateFolder);
+folderRoutes.delete('/:id', deleteFolder);

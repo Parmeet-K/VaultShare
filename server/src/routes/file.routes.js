@@ -1,0 +1,15 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { protect } from '../middleware/auth.middleware.js';
+import { upload } from '../middleware/upload.middleware.js';
+import { validate } from '../middleware/validate.middleware.js';
+import { deleteFile, downloadFile, getFile, listFiles, updateFile, uploadFiles, versions } from '../controllers/file.controller.js';
+export const fileRoutes = Router();
+fileRoutes.use(protect);
+fileRoutes.get('/', listFiles);
+fileRoutes.post('/upload', upload.array('files', 20), uploadFiles);
+fileRoutes.get('/:id', getFile);
+fileRoutes.get('/:id/download', downloadFile);
+fileRoutes.patch('/:id', [body('name').optional().trim().isLength({ min: 1 }), body('tags').optional().isArray()], validate, updateFile);
+fileRoutes.delete('/:id', deleteFile);
+fileRoutes.get('/:id/versions', versions);

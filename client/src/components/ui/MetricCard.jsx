@@ -1,0 +1,1 @@
+export function MetricCard({ label, value, detail, icon: Icon }) { return <article className="metric glass-panel">{Icon && <Icon size={20} />}<p>{label}</p><strong>{value}</strong><span>{detail}</span></article>; }

@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { protect } from '../middleware/auth.middleware.js';
+import { validate } from '../middleware/validate.middleware.js';
+import { accessPublicShare, createShare, myShares, revokeShare } from '../controllers/share.controller.js';
+export const shareRoutes = Router();
+shareRoutes.get('/public/:token', accessPublicShare);
+shareRoutes.post('/public/:token', accessPublicShare);
+shareRoutes.use(protect);
+shareRoutes.get('/', myShares);
+shareRoutes.post('/', [body('fileId').isMongoId(), body('permission').optional().isIn(['view', 'download', 'edit', 'admin'])], validate, createShare);
+shareRoutes.delete('/:id', revokeShare);
